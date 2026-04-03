@@ -40,14 +40,14 @@ insert into bill (bill_id, client_id, bill_date, total_bill) values (109051, 525
 insert into bill (bill_id, client_id, bill_date, total_bill) values (109052, 5216589, '16/03/2026', 300);
 insert into bill (bill_id, bill_date) values (109053, '07/03/2026');
 insert into bill values (109054, 124598, '21/03/2026', 643);
--- Repeating inserts for learning purposes
-insert into bill values (109055, 5216589, '16/03/2026', 300);
+-- Repeating inserts for learning purposes, except some data from the attribute 'total_bill'
+insert into bill values (109055, 5216589, '16/03/2026', 330);
 insert into bill values (109056, 5258952, '10/03/2026', 451);
-insert into bill values (109057, 5216589, '16/03/2026', 300);
-insert into bill values (109058, 5258952, '10/03/2026', 451);
+insert into bill values (109057, 5216589, '16/03/2026', 701);
+insert into bill values (109058, 5258952, '10/03/2026', 754);
 insert into bill values (109059, 124598, '21/03/2026', 643);
 insert into bill values (109060, 5216589, '16/03/2026', 300);
-insert into bill values (109061, 124598, '21/03/2026', 643);
+insert into bill values (109061, 124598, '21/03/2026', 520);
 insert into bill (bill_id, bill_date) values (109062, '07/03/2026');
 insert into bill (bill_id, bill_date) values (109063, '07/03/2026');
 insert into bill values (109064, 124598, '21/03/2026', 643);
