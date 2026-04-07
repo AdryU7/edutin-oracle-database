@@ -58,6 +58,15 @@ INSERT INTO CLIENTS VALUES ('5258474', '1001', 'Alfredo', 'Suarez', '37', 'CALLE
 INSERT INTO CLIENTS VALUES ('5258141', '1002', 'Valentina', 'Suarez', '41', 'CALLE COLOMBIA No 841', '958754454', 'valentina@gmail.com', '455788841112466630', 'CALLE COLOMBIA No 841');
 INSERT INTO CLIENTS VALUES ('5258771', '1003', 'Rodolfo', 'Caballero', '19', 'CALLE LOS ANGELES No 1037', '933374511', 'rodolfo@gmail.com', '4557888499456887', 'CALLE LOS ANGELES No 1037');
 INSERT INTO CLIENTS VALUES ('5258884', '1004', 'Mariano', 'Salazar', '24', 'CALLE ALEMANIA No 914', '985585521', 'mariano@gmail.com', '4557888432600082', 'CALLE ALEMANIA No 914');
+INSERT INTO CLIENTS VALUES ('5258885', '1005', 'Adriano', 'Dominquez', '30', 'CALLE INGLATERRA No 988', '999855454', 'adriano@gmail.com', '4557888432600082', 'CALLE INGLATERRA No 988');
+INSERT INTO CLIENTS VALUES ('5258886', '1006', 'Romeo', 'Ronaldo', '47', 'CALLE ESPAÑA No 961', '922121200', 'romeo@gmail.com', '4557888432600082', 'CALLE LOS RUBIES No 1551');
+INSERT INTO CLIENTS VALUES ('5258887', '1007', 'Gael', 'Muñoz', '21', 'CALLE PORTUGAL No 931', '934525852', 'gael@gmail.com', '4557888432600082', 'CALLE MEXICO No 1242');
+INSERT INTO CLIENTS VALUES ('5258888', '1008', 'Rodrigo', 'Quiroz', '18', 'CALLE PANAMA No 967', '988588211', 'rodrigo@gmail.com', '4557888432600082', 'CALLE PANAMA No 967');
+INSERT INTO CLIENTS VALUES ('5258889', '1009', 'Salomon', 'Palomino', '35', 'CALLE SUIZA No 769', '900124014', 'salomon@gmail.com', '4557888432600082', 'CALLE SUIZA No 769');
+INSERT INTO CLIENTS VALUES ('5258890', '1010', 'Pedro', 'Castillo', '50', 'CALLE GUAM No 254', '922004744', 'pedro@gmail.com', '4557888432600082', 'CALLE GUAM No 254');
+INSERT INTO CLIENTS VALUES ('5258891', '1011', 'Eliana', 'Cosavalente', '44', 'CALLE ITALIA No 343', '944411011', 'eliana@gmail.com', '4557888432600082', 'CALLE ROSMELLY No 1445');
+INSERT INTO CLIENTS VALUES ('5258892', '1012', 'Marco', 'Caballero', '33', 'CALLE BOSTON No 271', '998544100', 'marco@gmail.com', '4557888432600082', 'CALLE BOSTON No 271');
+INSERT INTO CLIENTS VALUES ('5258893', '1013', 'Soledad', 'Bustamante', '26', 'CALLE CANADA No 545', '965522212', 'soledad@gmail.com', '4557888432600082', 'CALLE KENNEDY No 1174');
 
 INSERT INTO PRODUCT VALUES ('10001', 'Queso Gloria', '12', '45', '101');
 INSERT INTO PRODUCT VALUES ('10002', 'Leche Condensada', '18', '38', '101');
@@ -137,6 +146,14 @@ select * from clients order by c_name, age asc;
 select client_id, c_lastname, age from clients order by c_name desc;
 
 select * from product order by unit_price desc;
+
+/* Logical and comparison operators in queries */
+select * from product where unit_price>15 and stock<30;
+select * from product where not (unit_price>15 and stock<30);
+
+select * from clients where age<30 and c_location<>shipping_loc;
+
+select * from bill where total_bill>500 and total_bill<700 order by total_bill desc;
 
 -- Save transactions
 -- commit;
