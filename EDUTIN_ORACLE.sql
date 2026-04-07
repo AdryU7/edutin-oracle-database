@@ -118,7 +118,25 @@ select product_id as ID, p_name as NAME, unit_price, stock from product;
 select distinct client_id, total_bill from bill;
 
 /* 'WHERE' clause*/
+select * from clients where age > 30;
 
+select * from bill where total_bill > 600;
+
+select * from product where stock < 30;
+
+/* 'ORDER BY' clause*/
+select * from clients order by age desc;
+select * from clients order by age asc;
+
+select * from bill order by total_bill desc;
+
+select * from product order by stock asc;
+
+select * from clients order by c_name, age asc;
+
+select client_id, c_lastname, age from clients order by c_name desc;
+
+select * from product order by unit_price desc;
 
 -- Save transactions
 -- commit;
