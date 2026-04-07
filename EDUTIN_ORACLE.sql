@@ -93,6 +93,18 @@ INSERT INTO PRODUCT VALUES ('10021', 'Quinua 2KG', '19', '31', '102');
 INSERT INTO PRODUCT VALUES ('10022', 'Cereal Kiwigen', '19', '27', '102');
 INSERT INTO PRODUCT VALUES ('10023', 'Arroz Integral San Lucas 5KG', '20', '15', '102');
 INSERT INTO PRODUCT VALUES ('10024', 'Leche en polvo 500GR', '6', '52', '101');
+-- Adding more products
+INSERT INTO PRODUCT VALUES ('10025', 'Azucar 4KG', '12', '47', '103');
+INSERT INTO PRODUCT VALUES ('10026', 'Sal de Mar 2KG', '8', '34', '104');
+INSERT INTO PRODUCT VALUES ('10027', 'Estevia 500GR', '6', '40', '103');
+INSERT INTO PRODUCT VALUES ('10028', 'Sal Comun 500GR', '5', '54', '104');
+INSERT INTO PRODUCT VALUES ('10029', 'Azucar Integral 3KG', '17', '31', '103');
+INSERT INTO PRODUCT VALUES ('10030', 'Coca Cola 2L', '4', '67', '105');
+INSERT INTO PRODUCT VALUES ('10031', 'Fanta 3L', '7', '45', '105');
+INSERT INTO PRODUCT VALUES ('10032', 'Guarana 1.5L', '3', '38', '105');
+INSERT INTO PRODUCT VALUES ('10033', 'Azucar Rubia 5KG', '17', '24', '103');
+INSERT INTO PRODUCT VALUES ('10034', 'Lays Bolsa Mediana', '2', '68', '106');
+INSERT INTO PRODUCT VALUES ('10035', 'Maní Confitado 35 uni.', '7', '44', '106');
 
 /*Updating data on a table*/
 update clients set shipping_loc='CALLE 70 No 288';
@@ -154,6 +166,28 @@ select * from product where not (unit_price>15 and stock<30);
 select * from clients where age<30 and c_location<>shipping_loc;
 
 select * from bill where total_bill>500 and total_bill<700 order by total_bill desc;
+
+/* Math operators in queries */
+select count(client_id) as q_clients from clients;
+
+select avg(age) as average from clients;
+
+select sum(total_bill) as total_sales from bill;
+
+select min(age) as minimum_age from clients;
+
+select min(total_bill) as lower_sales from bill;
+select max(total_bill) as major_sales from bill;
+
+/* List products by category and stock sum as total_stock
+- 'group by' is used to filter categories
+- 'having' is used to include data where the 'total_stock'
+  is less or equal to 120
+- and finally, sort them in descending order */
+select category_id, sum(stock) as total_stock from product
+group by category_id
+having sum(stock)<=120
+order by sum(stock) desc;
 
 -- Save transactions
 -- commit;
