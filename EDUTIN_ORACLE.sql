@@ -3,6 +3,7 @@ create table bill(
 bill_id number(7) primary key,
 client_id number(10),
 bill_date date,
+status varchar2(10),
 total_bill number(12,2)
 );
 
@@ -35,24 +36,13 @@ stock number (3),
 category_id number(3)
 );
 
-/*Inserting data on a table*/
-insert into bill (bill_id, client_id, bill_date, total_bill) values (109051, 5258952, '10/03/2026', 451);
-insert into bill (bill_id, client_id, bill_date, total_bill) values (109052, 5216589, '16/03/2026', 300);
-insert into bill (bill_id, bill_date) values (109053, '07/03/2026');
-insert into bill values (109054, 124598, '21/03/2026', 643);
--- Repeating inserts for learning purposes, except some data from the attribute 'total_bill'
-insert into bill values (109055, 5216589, '16/03/2026', 330);
-insert into bill values (109056, 5258952, '10/03/2026', 451);
-insert into bill values (109057, 5216589, '16/03/2026', 701);
-insert into bill values (109058, 5258952, '10/03/2026', 754);
-insert into bill values (109059, 124598, '21/03/2026', 643);
-insert into bill values (109060, 5216589, '16/03/2026', 300);
-insert into bill values (109061, 124598, '21/03/2026', 520);
-insert into bill (bill_id, bill_date) values (109062, '07/03/2026');
-insert into bill (bill_id, bill_date) values (109063, '07/03/2026');
-insert into bill values (109064, 124598, '21/03/2026', 643);
-insert into bill values (109065, 5216589, '16/03/2026', 300);
+create table categories(
+category_id number(3) primary key,
+cat_name varchar2(40),
+cat_description varchar2(255)
+);
 
+/*Inserting data on a table*/
 INSERT INTO CLIENTS VALUES ('5258952', '1000', 'Marlon', 'Soria', '28', 'CALLE LIMA No 232', '942567845', 'marlon@gmail.com', '4557888466615485', 'CALLE LIMA No 232');
 INSERT INTO CLIENTS VALUES ('5258474', '1001', 'Alfredo', 'Suarez', '37', 'CALLE RUBY No 242', '957678142', 'alfredo@gmail.com', '4557888487579985', 'CALLE RUBY No 242');
 INSERT INTO CLIENTS VALUES ('5258141', '1002', 'Valentina', 'Suarez', '41', 'CALLE COLOMBIA No 841', '958754454', 'valentina@gmail.com', '455788841112466630', 'CALLE COLOMBIA No 841');
@@ -106,6 +96,42 @@ INSERT INTO PRODUCT VALUES ('10033', 'Azucar Rubia 5KG', '17', '24', '103');
 INSERT INTO PRODUCT VALUES ('10034', 'Lays Bolsa Mediana', '2', '68', '106');
 INSERT INTO PRODUCT VALUES ('10035', 'Maní Confitado 35 uni.', '7', '44', '106');
 
+INSERT INTO CATEGORIES VALUES ('101', 'Lacteos', '');
+INSERT INTO CATEGORIES VALUES ('102', 'Trigo', '');
+INSERT INTO CATEGORIES VALUES ('103', 'Edulcorantes', '');
+INSERT INTO CATEGORIES VALUES ('104', 'Sales', '');
+INSERT INTO CATEGORIES VALUES ('105', 'Bebidas', '');
+INSERT INTO CATEGORIES VALUES ('106', 'Snacks', '');
+
+insert into bill (bill_id, client_id, bill_date, status, total_bill) values (109051, 5258884, '10/03/2026', 'PAID', 451);
+insert into bill (bill_id, client_id, bill_date, status, total_bill) values (109052, 5258888, '16/03/2026', 'PENDING', 300);
+insert into bill (bill_id, bill_date) values (109053, '07/03/2026');
+insert into bill values (109054, 5258892, '21/03/2026', 'PAID', 643);
+-- Doing more inserts including 'client_id' from their table
+insert into bill values (109055, 5258952, '16/03/2026', 'PAID', 330);
+insert into bill values (109056, 5258474, '10/03/2026', 'PENDING', 451);
+insert into bill values (109057, 5258886, '16/03/2026', 'PAID', 701);
+insert into bill values (109058, 5258890, '10/03/2026', 'PENDING', 754);
+insert into bill values (109059, 5258885, '21/03/2026', 'PENDING', 643);
+insert into bill values (109060, 5258893, '16/03/2026', 'PENDING', 300);
+insert into bill values (109061, 5258891, '21/03/2026', 'PAID', 520);
+insert into bill (bill_id, bill_date) values (109062, '07/03/2026');
+insert into bill (bill_id, bill_date) values (109063, '07/03/2026');
+insert into bill values (109064, 5258887, '21/03/2026', 'PENDING', 643);
+insert into bill values (109065, 5258141, '16/03/2026', 'PAID', 300);
+
+insert into detail values (771001, 109057, 10019, 4, 80);
+insert into detail values (771002, 109054, 10024, 10, 60);
+insert into detail values (771003, 109065, 10021, 2, 38);
+insert into detail values (771004, 109060, 10013, 5, 90);
+insert into detail values (771005, 109055, 10028, 8, 40);
+insert into detail values (771006, 109057, 10017, 7, 133);
+insert into detail values (771007, 109056, 10010, 4, 80);
+insert into detail values (771008, 109061, 10014, 11, 88);
+insert into detail values (771009, 109051, 10007, 8, 48);
+insert into detail values (771010, 109064, 10020, 8, 64);
+insert into detail values (771011, 109052, 10004, 11, 209);
+
 /*Updating data on a table*/
 update clients set shipping_loc='CALLE 70 No 288';
 commit;
@@ -128,6 +154,7 @@ commit;
 select * from clients;
 select * from bill;
 select * from product;
+select * from detail;
 
 select client_id as ID, c_name as NAME, c_lastname as LAST_NAME, age from clients;
 
@@ -188,6 +215,48 @@ select category_id, sum(stock) as total_stock from product
 group by category_id
 having sum(stock)<=120
 order by sum(stock) desc;
+
+/* Queries with multiple tables */
+
+-- INNER JOIN
+select a.c_name as name, a.c_lastname as last_name, a.c_location as location, b.status
+from clients a 
+inner join bill b on a.client_id=b.client_id
+order by b.status;
+
+select a.category_id, a.cat_name as category_name, b.product_id, b.p_name as product_name
+from categories a
+inner join product b on a.category_id=b.category_id
+order by a.category_id;
+
+-- LEFT JOIN
+select a.product_id, a.p_name as product_name,
+       b.detail_num as detail, b.bill_id
+from product a
+left join detail b on a.product_id=b.product_id
+order by a.product_id;
+
+select a.c_name as name, a.c_lastname as last_name,
+       a.c_location as location, b.status as bill_status
+from clients a
+left join bill b on a.client_id=b.client_id
+order by b.status;
+
+-- RIGHT JOIN
+select b.product_id, b.p_name as product_name,
+       a.detail_num as detail_number
+from detail a
+right join product b on a.product_id=b.product_id;
+
+-- FULL JOIN
+select a.c_name as name, a.c_lastname as last_name,
+       b.bill_id, b.total_bill
+from clients a
+full join bill b on a.client_id=b.client_id;
+
+select a.detail_num as detail_number, b.bill_id, b.total_bill
+from detail a
+full join bill b on a.bill_id=b.bill_id;
 
 -- Save transactions
 -- commit;
