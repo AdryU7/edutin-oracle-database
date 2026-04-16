@@ -125,3 +125,56 @@ full join factura b on a.id_cliente = b.id_client;
 select a.num_detalle as numero_detalle, b.id_factura, b.total_factura
 from detalle a
 full join factura b on a.id_fact = b.id_factura;
+
+/* Subqueries */
+select a.nombre, a.apellido, a.edad
+from cliente a
+where a.edad>(
+    select round(avg(b.edad),2) from cliente b
+);
+
+-- Bill with more than a product
+select a.id_factura, a.estado_fact as estado_factura, a.total_factura
+from factura a
+where a.id_factura in (
+    select b.id_fact from detalle b 
+    group by b.id_fact
+    having count(b.id_producto)>1
+);
+
+-- Using inner join
+select a.id_fact, b.estado_fact, count(a.id_producto) as cantidad_productos
+from detalle a
+inner join factura b on a.id_fact=b.id_factura
+group by a.id_fact, b.estado_fact
+having count(a.id_producto)>1;
+
+-- Clients with more than 40 years,
+-- Total bill with less than $500
+-- Bill on 'PAID' status
+select d.nombre, d.apellido, d.edad, b.id_carrito, a.id_factura, a.estado_fact,
+       c.id_producto, a.total_factura, sum(c.cantidad) as cantidad_producto
+from factura a
+inner join carrito b on a.id_factura=b.id_factura
+inner join detalle c on a.id_factura=c.id_fact
+inner join cliente d on a.id_client=d.id_cliente
+where d.edad>40
+and a.total_factura<500
+and a.estado_fact='PAGADA'
+group by d.nombre, d.apellido, d.edad, b.id_carrito, a.id_factura, a.estado_fact,
+         c.id_producto, a.total_factura;
+
+-- Update a column
+UPDATE factura f
+SET total_factura = (
+    SELECT SUM(d.cantidad * d.precio)
+    FROM detalle d
+    WHERE d.id_fact = f.id_factura
+)
+WHERE EXISTS (
+    SELECT 1
+    FROM detalle d
+    WHERE d.id_fact = f.id_factura
+);
+
+/* UNION */
