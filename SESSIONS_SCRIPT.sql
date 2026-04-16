@@ -178,3 +178,26 @@ WHERE EXISTS (
 );
 
 /* UNION */
+select a.nombre, a.apellido, a.edad, a.telefono, 'Entre 18 y 30 años' as Clasificacion
+from cliente a
+where a.edad>18 and a.edad<=30
+union
+select a.nombre, a.apellido, a.edad, a.telefono, 'Entre 31 y 50 años'
+from cliente a
+where a.edad>30 and a.edad<=50
+union
+select a.nombre, a.apellido, a.edad, a.telefono, 'Mayor a 50 años'
+from cliente a
+where a.edad>50;
+
+select count(a.id_cliente) as cantidad, 'Entre 18 y 30 años' as Clasificacion
+from cliente a
+where a.edad>18 and edad<=30
+union
+select count(a.id_cliente) as cantidad, 'Entre 31 y 50 años'
+from cliente a
+where a.edad>30 and edad<=50
+union
+select count(a.id_cliente) as cantidad, 'Mayor a 50 años'
+from cliente a
+where a.edad>50;
